@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<!--
+Spectral by HTML5 UP
+html5up.net | @ajlkn
+Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+	<title>m a p</title>
+	<script src="https://cloudboost.io/js-sdk/cloudboost.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<!-- Latest compiled and minified CSS -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+</head>
+<Style>
+.panel {
+	font-size: 10px;
+}
+.box {
+	margin: 10px;
+	border-radius: 10px;
+	color: grey;
+}
+.scrollbar {
+	overflow-y: scroll;
+}
+.force-overflow {
+	min-height: 100px;
+}
+div.scrollbar {
+	width: 100%;
+	height: 70%;
+	overflow: scroll;
+	color: black;
+}
+body {
+}
+#map {
+	width: 40%;
+	height: auto;
+	border-radius: 10px;
+}
+@media only screen and (max-width:780px) {
+	#map {
+		height: 450px;
+		width: 550px;
+	}
+	h2 {
+		font-size: 10px;
+	}
+	div.scrollbar {
+		width: 100%;
+		height: 25%;
+		overflow: scroll;
+	}
+	.hide {
+		display: none;
+	}
+
+}
+</style>
+<body>
+
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1><a>MAP</a></h1>
+			<nav id="nav">
+				<ul>
+					<li class="special">
+						<a href="#menu" class="menuToggle"><span>Menu</span></a>
+						<div id="menu">
+							<ul>
+							</li><%= link_to "Home", root_path %></li>
+							<li><%= link_to 'About', pages_about_path %></li>
+							<li><%= link_to 'Map', pages_map_path %></li>
+							<li><%= link_to 'Profile', @user_path %></li>
+							<li><a href="">Sign Up</a></li>
+							<li><a href="#">Log In</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Main -->
+	<article id="main">
+		<section class="wrapper style5">
+			<div class="inner">
+				<div class = 'row'>
+					<div class = 'col-md-8' id="map">
+						<div id = 'map'>
+						</div>
+					</div>
+					<div class = 'col-md-4 panel inner' style = '' id = 'eventList'>
+						<h4>upcoming volunteer events</h4>
+						<div id="floating-panel" class = 'hide'>
+							<input id="address" type="textbox" value="Sydney, NSW" style = 'border-radius: 10px;'>
+							<input id="submit" type="button" class = 'btn' value="Geocode">
+						</div>
+						<div class = 'scrollbar'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</article>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+			<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+		</ul>
+		<ul class="copyright">
+			<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
+<script>
+CB.CloudApp.init('niwyllextcko','9e5fc63a-7a67-4d8b-9975-e1004b69518f');
+var today = new Date();
+currentDate = '2017-11-10'
+var query = new CB.CloudQuery("Event");
+query.lessThanEqualTo('date.date', currentDate);
+query.find({
+	success: function(list) {
+		console.log(list);
+		for(var i = 0; i < list.length; i++){
+			var address = list[i].document.address;
+			var name = list[i].document.name;
+			var description = list[i].document.description;
+			var contentString = list[i].document.address;
+			var date = list[i].document.date.date;
+			var startTime = list[i].document.date.startTime;
+			var endTime = list[i].document.date.endTime;
+			$(".scrollbar").append("<div class = 'box border' style = 'color: black'><section><p>" + name + "</p><p>description: " +
+			description + "</p><p>address: " + address + "</p><p>date: " + date + "</p><p>from: " +
+			startTime + "</p><p>to: " + endTime + "</p></section></div>");
+		}
+		//list is an array of CloudObjects
+	},
+	error: function(error) {
+	}
+});
+
+var map;
+function initMap() {
+	var query = new CB.CloudQuery('Event');
+	map = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: 40.7421217, lng: -74.0068703},
+		zoom: 14
+	});
+	var geocoder = new google.maps.Geocoder();
+
+	document.getElementById('submit').addEventListener('click', function() {
+		geocodeAddress(geocoder, map);
+	});
+	function geocodeAddress(geocoder, resultsMap, address) {
+		var address = document.getElementById('address').value;
+		geocoder.geocode({'address': address}, function(results, status) {
+			console.log(results[0].geometry.location);
+			if (status === 'OK') {
+				resultsMap.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: resultsMap,
+					position: results[0].geometry.location
+				});
+
+			} else {
+				alert('Geocode was not successful for the following reason: ' + status);
+			}
+		});
+	}
+
+	query.find({
+		success : function(list){
+			function geocodeAddress(geocoder, resultsMap, address, description, name, date, startTime, endTime) {
+				geocoder.geocode({'address': address}, function(results, status) {
+					console.log(results[0].geometry.location);
+					if (status === 'OK') {
+						resultsMap.setCenter(results[0].geometry.location);
+						var infowindow = new google.maps.InfoWindow({
+							content: '<p><b>' + name + '</b></p><p>description: </p><p>' +
+							description + '</p><p>address: </p><p>' + address +
+							"</p><p>date: </p><p>" + date + "</p><p>from: </p><p>" + startTime
+							+ "</p><p>to: </p><p>" + endTime + "</p>"
+						});
+						var marker = new google.maps.Marker({
+							map: resultsMap,
+							position: results[0].geometry.location
+						});
+						marker.addListener('click', function() {
+							infowindow.open(map, marker);
+						});
+
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+					}
+				});
+			}
+			console.log(list);
+			for(var i = 0; i < list.length; i++){
+				console.log("gello");
+				var address = list[i].document.address;
+				var name = list[i].document.name;
+				var description = list[i].document.description;
+				var contentString = list[i].document.address;
+				var date = list[i].document.date.date;
+				var startTime = list[i].document.date.startTime;
+				var endTime = list[i].document.date.endTime;
+				geocodeAddress(geocoder, map, address, description, name, date, startTime, endTime);
+			}
+		},error : function(error){
+			//error
+		}
+	});
+
+}
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn-yGtijlirpXDPvdbaEfG_D3dgBYfOr8&callback=initMap"></script>
+</body>
+</html>
