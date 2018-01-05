@@ -30,7 +30,14 @@
     <%= f.label :password_confirmation %><br/>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  <div class="field">
+    <%= f.label :school %><br/>
+    <%= f.text_field :school, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :age %><br/>
+    <%= f.text_field :age, autofocus: true, style: '' %>
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
