@@ -7,15 +7,14 @@
         </li><%= link_to "Home", root_path %></li>
         <li><%= link_to 'About', pages_about_path %></li>
         <li><%= link_to 'Map', pages_map_path %></li>
-        <li><%= link_to 'Profile' %></li>
+        <li><%= link_to 'Profile', profile_path %></li>
         <% if user_signed_in? %>
-        <li><%= link_to 'log out', destroy_user_session_path, :method => :delete, :confirm => "You sure?",
+        <li><%= link_to 'log out', destroy_user_session_path, :confirm => "You sure?",
                                 :title => "log out #{current_user}" %></li>
         <% else %>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
         <li><%= link_to 'Log In', new_user_session_path %></li>
         <% end %>
-        <%= @user.inspect %>
       </ul>
     </div>
   </li>

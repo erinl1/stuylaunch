@@ -20,9 +20,6 @@
 
   <div class="field">
     <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <%= @minimum_password_length %>
-    <% end %>
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
