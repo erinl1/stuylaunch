@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   devise_for :users, skip: [:sessions]
 as :user do
   get 'signin', to: 'devise/sessions#new', as: :new_user_session
